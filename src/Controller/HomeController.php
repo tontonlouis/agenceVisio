@@ -26,20 +26,6 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-
-        // for ($i=0; $i < 10 ; $i++) {
-        //     $property = new Property();
-        //     $property->setName("v $i")
-        //         ->setDescription("desc $i")
-        //         ->setPrice(152000)
-        //         ->setAdress('fazf');
-
-        //     $this->em->persist($property);
-        //     $this->em->flush();
-        // }
-
-
-
         $properties = $this->repo->findByLast();
         return $this->render('pages/home.html.twig',[
             "current_menu" => "home",

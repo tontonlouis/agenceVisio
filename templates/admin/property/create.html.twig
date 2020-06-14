@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+
+{% block title "Ajout d'un bien" %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(formProperty) }}
+
+		    {{ form_rest(formProperty) }}
+
+
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+            <button type="reset" class="btn btn-danger">Annuler</button>
+
+		{{ form_end(formProperty)}}
+	</div>
+{% endblock %}

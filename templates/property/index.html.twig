@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Tous nos bien' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Voir tous nos biens</h1>
+
+        <div class="row">
+        {% for property in properties %}
+            {% include "property/_card.html.twig" %}
+        {% endfor %}
+        </div>
+
+        <div class="pagination justify-content-center mt-4">
+            {{ knp_pagination_render(properties) }}
+        </div>
+    </div>
+{% endblock %}

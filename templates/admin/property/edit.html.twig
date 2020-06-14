@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h2>Modifier un bien</h2>
+
+    {{ form_start(form)}}
+        {{ form_rest(form)}}
+        <button class='btn btn-success' type="submit">Éditer</button>
+    {{ form_end(form)}}
+        
+{% endblock %}

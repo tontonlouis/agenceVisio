@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,26 +32,6 @@ class Property
     /**
      * @ORM\Column(type="integer")
      */
-    private $price;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $address;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $zipcode;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $surface;
 
     /**
@@ -72,6 +55,27 @@ class Property
     private $heat;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $zipcode;
+
+
+    /**
      * @ORM\Column(type="boolean", options={"default": false})
      */
     private $sold = false;
@@ -80,6 +84,18 @@ class Property
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Option", inversedBy="properties")
+     */
+    private $options;
+
+
+    public function __construct()
+    {
+        $this->created_at = new DateTime('now');
+        $this->options = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +136,11 @@ class Property
         $this->price = $price;
 
         return $this;
+    }
+
+    public function getPriceFormatted(): string
+    {
+        return number_format($this->price, 0, '', ' ') . ' €';
     }
 
     public function getAddress(): ?string
@@ -238,6 +259,32 @@ class Property
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Option[]
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options[] = $option;
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        if ($this->options->contains($option)) {
+            $this->options->removeElement($option);
+        }
 
         return $this;
     }
